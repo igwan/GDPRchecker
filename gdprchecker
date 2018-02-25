@@ -41,15 +41,23 @@ def crawl(urls, verbose):
 
 def main():
     """gdprchecker CLI tool entry point"""
-    parser = argparse.ArgumentParser(
-        description='Try to give hints about some steps required to make a website GDPR compliant')
+    parser = argparse.ArgumentParser(description=(
+        'Try to give hints about some steps required to make a website GDPR compliant. '
+        'If no check flag is passed do all checks.'
+    ))
     parser.add_argument('url', nargs='+', help='One or many urls to check')
+    parser.add_argument('-f', '--form', action='store_true', help='Check for forms')
+    parser.add_argument('-s', '--https', action='store_true', help='Check for https')
     parser.add_argument('-v', '--verbose', action='count', default=0,
                         help='Increase the verbosity level')
 
     args = parser.parse_args()
+    if not args.form and not args.https:
+        args.form = True
+        args.https = True
 
-    crawl(args.url, args.verbose)
+    if args.form:
+        crawl(args.url, args.verbose)
 
 
 if __name__ == "__main__":
