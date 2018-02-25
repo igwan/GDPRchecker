@@ -10,11 +10,25 @@ parser.add_argument('url', nargs='+')
 
 args = parser.parse_args()
 
+def crawler_results(item, response, spider):
+    form_found(item)
+
+def form_found(form):
+    print(form)
 
 def crawl(urls):
-    process = CrawlerProcess(get_project_settings())
+    settings = get_project_settings()
+    settings.update({
+        'LOG_ENABLED': False,
+        'STATS_DUMP': False
+    })
 
-    process.crawl('form', urls=urls)
+    process = CrawlerProcess(settings)
+    crawler = process.create_crawler('form')
+
+    crawler.signals.connect(crawler_results, scrapy.signals.item_scraped)
+
+    process.crawl(crawler, urls=urls)
     process.start()
 
 
