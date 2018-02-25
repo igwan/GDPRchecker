@@ -8,6 +8,7 @@ from clint.textui import indent, colored, puts
 
 parser = argparse.ArgumentParser(description='Try to give an idea of a website GDPR compliance')
 parser.add_argument('url', nargs='+')
+parser.add_argument('--verbose', '-v', action='count', default=0)
 
 args = parser.parse_args()
 
@@ -24,10 +25,10 @@ def form_found(form):
             puts(input['name'])
 
 
-def crawl(urls):
+def crawl(urls, verbose):
     settings = get_project_settings()
     settings.update({
-        'LOG_ENABLED': False,
+        'LOG_ENABLED': verbose > 0,
         'STATS_DUMP': False
     })
 
@@ -41,7 +42,7 @@ def crawl(urls):
 
 
 def main(args):
-    crawl(args.url)
+    crawl(args.url, args.verbose)
 
 
 main(args)
