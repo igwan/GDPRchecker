@@ -19,7 +19,7 @@ def crawler_results(item, response, spider):
 
 def form_found(form):
     puts(colored.green("Found form at ") + form['url'])
-    puts(colored.green("With the following field :"))
+    puts(colored.green("With the following field:"))
     with indent(4):
         for input in form['inputs']:
             puts(input['name'])
