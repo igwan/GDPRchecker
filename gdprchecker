@@ -4,17 +4,25 @@ import argparse
 import scrapy
 from scrapy.crawler import CrawlerProcess
 from scrapy.utils.project import get_project_settings
+from clint.textui import indent, colored, puts
 
 parser = argparse.ArgumentParser(description='Try to give an idea of a website GDPR compliance')
 parser.add_argument('url', nargs='+')
 
 args = parser.parse_args()
 
+
 def crawler_results(item, response, spider):
-    form_found(item)
+    form_found(dict(item))
+
 
 def form_found(form):
-    print(form)
+    puts(colored.green("Found form at ") + form['url'])
+    puts(colored.green("With the following field :"))
+    with indent(4):
+        for input in form['inputs']:
+            puts(input['name'])
+
 
 def crawl(urls):
     settings = get_project_settings()
