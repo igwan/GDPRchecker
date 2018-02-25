@@ -3,16 +3,24 @@ import scrapy
 from scrapy.spiders import CrawlSpider, Rule
 from scrapy.linkextractors import LinkExtractor
 from crawler.items import FormLoader, InputLoader
+from helpers import default_scheme, get_domain
 
 
 class FormSpider(CrawlSpider):
     name = 'form'
-    allowed_domains = ['quotes.toscrape.com']
-    start_urls = ['http://quotes.toscrape.com']
 
     rules = [
         Rule(LinkExtractor(), callback='parse_page', follow=True)
     ]
+
+    def __init__(self, urls, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        urls = list(map(default_scheme, urls))
+        domains = list(set(map(get_domain, urls)))
+
+        self.start_urls = urls
+        self.allowed_domains = domains
 
     def parse_page(self, response):
         return [self.parse_form(form, response)

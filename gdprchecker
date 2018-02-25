@@ -1,0 +1,25 @@
+#!/usr/bin/env python
+
+import argparse
+import scrapy
+from scrapy.crawler import CrawlerProcess
+from scrapy.utils.project import get_project_settings
+
+parser = argparse.ArgumentParser(description='Try to give an idea of a website GDPR compliance')
+parser.add_argument('url', nargs='+')
+
+args = parser.parse_args()
+
+
+def crawl(urls):
+    process = CrawlerProcess(get_project_settings())
+
+    process.crawl('form', urls=urls)
+    process.start()
+
+
+def main(args):
+    crawl(args.url)
+
+
+main(args)
