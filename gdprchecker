@@ -7,8 +7,8 @@ from scrapy.utils.project import get_project_settings
 from clint.textui import indent, colored, puts
 
 parser = argparse.ArgumentParser(description='Try to give an idea of a website GDPR compliance')
-parser.add_argument('url', nargs='+')
-parser.add_argument('--verbose', '-v', action='count', default=0)
+parser.add_argument('url', nargs='+', help='One or many urls to check')
+parser.add_argument('-v', '--verbose', action='count', default=0, help='Increase the verbosity level')
 
 args = parser.parse_args()
 
