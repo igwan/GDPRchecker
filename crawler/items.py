@@ -9,6 +9,7 @@ import scrapy
 from scrapy.loader import ItemLoader
 from scrapy.loader.processors import TakeFirst, MapCompose, Join
 
+
 class Form(scrapy.Item):
     url = scrapy.Field(
         output_processor=TakeFirst()
@@ -18,14 +19,16 @@ class Form(scrapy.Item):
     )
     inputs = scrapy.Field()
 
+
 class FormLoader(ItemLoader):
     default_item_class = Form
 
-class Input(scrapy.Item):
 
+class Input(scrapy.Item):
     type = scrapy.Field()
     name = scrapy.Field()
     id = scrapy.Field()
+
 
 class InputLoader(ItemLoader):
     default_item_class = Input

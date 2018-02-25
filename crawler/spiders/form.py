@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import scrapy
 from scrapy.spiders import CrawlSpider, Rule
 from scrapy.linkextractors import LinkExtractor
 from crawler.items import FormLoader, InputLoader
@@ -7,6 +6,7 @@ from helpers import default_scheme, get_domain
 
 
 class FormSpider(CrawlSpider):
+    """Form spider"""
     name = 'form'
 
     rules = [
@@ -32,14 +32,14 @@ class FormSpider(CrawlSpider):
         f.add_xpath('action', '@action')
         f.add_value(
             'inputs',
-            [self.parse_input(input)
-             for input in selector.xpath('//input')
-             if self.is_input_field(input)]
+            [self.parse_input(input_field)
+             for input_field in selector.xpath('//input')
+             if self.is_input_field(input_field)]
         )
         return f.load_item()
 
-    def is_input_field(self, input):
-        input_type = next(iter(input.xpath('@type').extract()), None)
+    def is_input_field(self, input_field):
+        input_type = next(iter(input_field.xpath('@type').extract()), None)
         return input_type not in ['hidden', 'submit']
 
     def parse_input(self, selector):
