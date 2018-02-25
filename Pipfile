@@ -7,9 +7,11 @@ name = "pypi"
 
 [packages]
 
-scrapy = "*"
+Scrapy = "*"
 clint = "*"
 
 
 [dev-packages]
 
+pylint = "*"
+"flake8" = "*"
