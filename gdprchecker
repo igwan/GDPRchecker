@@ -2,42 +2,7 @@
 """gdprchecker CLI tool"""
 
 import argparse
-import scrapy
-from scrapy.crawler import CrawlerProcess
-from scrapy.utils.project import get_project_settings
-from clint.textui import indent, colored, puts
-from checker.https import check_https
-
-
-def crawler_result(item, **_):
-    """Called for each crawler result"""
-    form_found(dict(item))
-
-
-def form_found(form):
-    """Print each form found"""
-    puts(colored.green("Found form at ") + form['url'])
-    puts(colored.green("With the following field:"))
-    with indent(4):
-        for input_field in form['inputs']:
-            puts(input_field['name'])
-
-
-def crawl(urls, verbose):
-    """Crawl a list of url"""
-    settings = get_project_settings()
-    settings.update({
-        'LOG_ENABLED': verbose > 0,
-        'STATS_DUMP': False
-    })
-
-    process = CrawlerProcess(settings)
-    crawler = process.create_crawler('form')
-
-    crawler.signals.connect(crawler_result, scrapy.signals.item_scraped)
-
-    process.crawl(crawler, urls=urls)
-    process.start()
+from checker import https, forms
 
 
 def main():
@@ -58,10 +23,10 @@ def main():
         args.https = True
 
     if args.https:
-        check_https(args.url, args.verbose)
+        https.check(args.url, args.verbose)
 
     if args.form:
-        crawl(args.url, args.verbose)
+        forms.check(args.url, args.verbose)
 
 
 if __name__ == "__main__":
