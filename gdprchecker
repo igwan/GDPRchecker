@@ -15,7 +15,7 @@ def main():
     parser.add_argument('-f', '--form', action='store_true', help='Check for forms')
     parser.add_argument('-s', '--https', action='store_true', help='Check for https')
     parser.add_argument('--auth', help='Credentials for basic auth (user:passwd)')
-    parser.add_argument('-v', '--verbose', action='count', default=0,
+    parser.add_argument('-v', action='count', default=0, dest='verbosity',
                         help='Increase the verbosity level')
 
     args = parser.parse_args()
@@ -27,7 +27,7 @@ def main():
         https.check(args.url)
 
     if args.form:
-        forms.check(args.url, auth=args.auth, verbose=args.verbose)
+        forms.check(args.url, auth=args.auth, verbosity=args.verbosity)
 
 
 if __name__ == "__main__":

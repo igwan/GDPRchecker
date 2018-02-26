@@ -6,17 +6,17 @@ from scrapy.utils.project import get_project_settings
 from clint.textui import indent, colored, puts
 
 
-def check(urls, auth=None, verbose=0):
+def check(urls, auth=None, verbosity=0):
     """Crawl a list of url"""
     # we somehow need to append an empty string for bold to work
     puts(colored.white('Checking forms:', bold=True) + '')
     settings = get_project_settings()
-    if verbose > 0:
+    if verbosity > 0:
         settings.set('LOG_ENABLED', True)
         log_levels = ['CRITICAL', 'ERROR', 'WARNING', 'INFO', 'DEBUG']
-        if verbose >= len(log_levels):
-            verbose = len(log_levels) - 1
-        settings.set('LOG_LEVEL', log_levels[verbose])
+        if verbosity >= len(log_levels):
+            verbosity = len(log_levels) - 1
+        settings.set('LOG_LEVEL', log_levels[verbosity])
 
     process = CrawlerProcess(settings)
     crawler = process.create_crawler('form')
