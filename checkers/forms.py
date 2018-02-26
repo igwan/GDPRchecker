@@ -11,10 +11,8 @@ def check(urls, verbose):
     # we somehow need to append an empty string for bold to work
     puts(colored.white('Checking forms:', bold=True) + '')
     settings = get_project_settings()
-    settings.update({
-        'LOG_ENABLED': verbose > 0,
-        'STATS_DUMP': False
-    })
+    if verbose > 0:
+        settings.set('LOG_ENABLED', True)
 
     process = CrawlerProcess(settings)
     crawler = process.create_crawler('form')

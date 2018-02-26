@@ -88,3 +88,8 @@ ROBOTSTXT_OBEY = True
 #HTTPCACHE_DIR = 'httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
+
+# Do not log
+LOG_ENABLED = False
+# Do not show stats when the crawl is done
+STATS_DUMP = False
