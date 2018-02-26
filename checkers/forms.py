@@ -13,6 +13,10 @@ def check(urls, auth=None, verbose=0):
     settings = get_project_settings()
     if verbose > 0:
         settings.set('LOG_ENABLED', True)
+        log_levels = ['CRITICAL', 'ERROR', 'WARNING', 'INFO', 'DEBUG']
+        if verbose >= len(log_levels):
+            verbose = len(log_levels) - 1
+        settings.set('LOG_LEVEL', log_levels[verbose])
 
     process = CrawlerProcess(settings)
     crawler = process.create_crawler('form')
