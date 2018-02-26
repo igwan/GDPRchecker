@@ -28,10 +28,12 @@ class FormSpider(CrawlSpider):
         self.allowed_domains = domains
 
     def parse_page(self, response):
+        """Find and parse every form in a page"""
         return [self.parse_form(form, response)
                 for form in response.xpath('//form')]
 
     def parse_form(self, selector, response):
+        """Parse a form for it's url, action and inputs"""
         f = FormLoader(selector=selector)
         f.add_value('url', response.url)
         f.add_xpath('action', '@action')
@@ -43,13 +45,15 @@ class FormSpider(CrawlSpider):
         )
         return f.load_item()
 
-    def is_input_field(self, input_field):
-        input_type = next(iter(input_field.xpath('@type').extract()), None)
-        return input_type not in ['hidden', 'submit']
-
     def parse_input(self, selector):
+        """Parse an input for it's type, name and id"""
         i = InputLoader(selector=selector)
         i.add_xpath('type', '@type')
         i.add_xpath('name', '@name')
         i.add_xpath('id', '@id')
         return i.load_item()
+
+    def is_input_field(self, input_field):
+        """Check if an input field is not of type hidden or submit"""
+        input_type = next(iter(input_field.xpath('@type').extract()), None)
+        return input_type not in ['hidden', 'submit']
