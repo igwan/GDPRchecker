@@ -6,7 +6,7 @@ from clint.textui import indent, colored, puts
 from helpers import get_domain
 
 
-def check(urls, _verbose):
+def check(urls):
     """Check the urls for access through https"""
     for url in set(map(get_domain, urls)):
         puts(colored.white('Checking https for: ', bold=True)

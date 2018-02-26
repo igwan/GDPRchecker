@@ -24,10 +24,10 @@ def main():
         args.https = True
 
     if args.https:
-        https.check(args.url, args.verbose)
+        https.check(args.url)
 
     if args.form:
-        forms.check(args.url, args.auth, args.verbose)
+        forms.check(args.url, auth=args.auth, verbose=args.verbose)
 
 
 if __name__ == "__main__":
