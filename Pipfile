@@ -7,8 +7,9 @@ name = "pypi"
 
 [packages]
 
-Scrapy = "*"
+scrapy = "*"
 clint = "*"
+requests = "*"
 
 
 [dev-packages]

@@ -6,6 +6,7 @@ import scrapy
 from scrapy.crawler import CrawlerProcess
 from scrapy.utils.project import get_project_settings
 from clint.textui import indent, colored, puts
+from checker.https import check_https
 
 
 def crawler_result(item, **_):
@@ -55,6 +56,9 @@ def main():
     if not args.form and not args.https:
         args.form = True
         args.https = True
+
+    if args.https:
+        check_https(args.url, args.verbose)
 
     if args.form:
         crawl(args.url, args.verbose)
