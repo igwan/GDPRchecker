@@ -2,7 +2,7 @@
 """gdprchecker CLI tool"""
 
 import argparse
-from checker import https, forms
+from checkers import https, forms
 
 
 def main():
