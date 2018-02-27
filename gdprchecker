@@ -17,6 +17,8 @@ def main():
     parser.add_argument('--auth', help='Credentials for basic auth (user:passwd)')
     parser.add_argument('--no-follow', action='store_false', dest='follow',
                         help='When crawling do not follow links')
+    parser.add_argument('--no-robotstxt', action='store_false', dest='robotstxt',
+                        help='When crawling do not obey robots.txt')
     parser.add_argument('-v', action='count', default=0, dest='verbosity',
                         help='Increase the verbosity level')
 
@@ -29,7 +31,8 @@ def main():
         https.check(args.url)
 
     if args.form:
-        forms.check(args.url, auth=args.auth, follow=args.follow, verbosity=args.verbosity)
+        forms.check(args.url, auth=args.auth, follow=args.follow,
+                    robotstxt=args.robotstxt, verbosity=args.verbosity)
 
 
 if __name__ == "__main__":
