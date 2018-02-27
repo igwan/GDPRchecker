@@ -6,7 +6,7 @@ from scrapy.utils.project import get_project_settings
 from clint.textui import indent, colored, puts
 
 
-def check(urls, auth=None, verbosity=0):
+def check(urls, auth=None, follow=True, verbosity=0):
     """Crawl a list of url"""
     # we somehow need to append an empty string for bold to work
     puts(colored.white('Checking forms:', bold=True) + '')
@@ -23,7 +23,7 @@ def check(urls, auth=None, verbosity=0):
 
     crawler.signals.connect(_crawler_result, scrapy.signals.item_scraped)
 
-    process.crawl(crawler, urls=urls, auth=auth)
+    process.crawl(crawler, urls=urls, follow=follow, auth=auth)
     process.start()
 
 
