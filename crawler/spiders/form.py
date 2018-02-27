@@ -10,16 +10,16 @@ class FormSpider(CrawlSpider):
     name = 'form'
 
     def __init__(self, urls, follow, auth, *args, **kwargs):
+        self.rules = [
+            Rule(LinkExtractor(), callback='parse_page', follow=follow)
+        ]
+
         super().__init__(*args, **kwargs)
 
         if auth:
             auth_split = auth.split(':')
             self.http_user = auth_split[0]
             self.http_pass = auth_split[1]
-
-        self.rules = [
-            Rule(LinkExtractor(), callback='parse_page', follow=follow)
-        ]
 
         urls = list(map(default_scheme, urls))
         domains = list(set(map(get_domain, urls)))
