@@ -20,6 +20,8 @@ class FormSpider(CrawlSpider):
             Rule(link_extractor, callback='parse_page', follow=follow)
         ]
 
+        self.parse_start_url = self.parse_page
+
         super().__init__(*args, **kwargs)
 
         if auth:
