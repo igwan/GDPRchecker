@@ -10,8 +10,14 @@ class FormSpider(CrawlSpider):
     name = 'form'
 
     def __init__(self, urls, follow, auth, *args, **kwargs):
+
+        if follow:
+            link_extractor = LinkExtractor()
+        else:
+            link_extractor = LinkExtractor(deny=('.*'))
+
         self.rules = [
-            Rule(LinkExtractor(), callback='parse_page', follow=follow)
+            Rule(link_extractor, callback='parse_page', follow=follow)
         ]
 
         super().__init__(*args, **kwargs)
