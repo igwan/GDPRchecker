@@ -1,5 +1,6 @@
 """gdprchecker helper functions"""
 from urllib.parse import urlparse
+from clint.textui import puts
 from tabulate import tabulate
 
 
@@ -31,4 +32,4 @@ def dict_list_to_list_dict(dict_list):
 
 def pprint_inputs(inputs):
     """Pretty print a list of input items"""
-    print(tabulate(dict_list_to_list_dict(inputs), headers='keys'))
+    puts(tabulate(dict_list_to_list_dict(inputs), headers='keys'))
