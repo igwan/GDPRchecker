@@ -19,8 +19,9 @@ def main():
                         help='Do not crawl the whole website, only check the given urls')
     parser.add_argument('--no-robotstxt', action='store_false', dest='robotstxt',
                         help='When crawling do not obey robots.txt')
-    parser.add_argument('-v', action='count', default=0, dest='verbosity',
-                        help='Increase the verbosity level')
+    parser.add_argument('-v', '--verbose', action='count', default=0, dest='verbosity',
+                        help=('Print more information about what is happening. This option is '
+                              'repeatable and will increase verbosity each time it is repeated.'))
 
     args = parser.parse_args()
     if not args.form and not args.https:
