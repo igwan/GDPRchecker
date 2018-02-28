@@ -48,7 +48,7 @@ class FormSpider(CrawlSpider):
         f.add_value(
             'inputs',
             [self.parse_input(input_field)
-             for input_field in selector.xpath('//input')
+             for input_field in selector.xpath('.//input')
              if self.is_input_field(input_field)]
         )
         return f.load_item()
