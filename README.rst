@@ -31,16 +31,26 @@ Usage
 ::
 
     $ gdprchecker
-    usage: gdprchecker [-h] [-v] url [url ...]
-    
-    Try to give hints about some steps required to make a website GDPR compliant
-    
+    usage: gdprchecker [-h] [-f] [-s] [--auth AUTH] [--no-crawl] [--no-robotstxt]
+                       [-v]
+                       url [url ...]
+
+    Try to give hints about some steps required to make a website GDPR compliant.
+    If no check flag is passed do all checks.
+
     positional arguments:
-      url            One or many urls to check
-    
+      url             One or many urls to check
+
     optional arguments:
-      -h, --help     show this help message and exit
-      -v, --verbose  Increase the verbosity level
+      -h, --help      show this help message and exit
+      -f, --form      Check for forms
+      -s, --https     Check for https
+      --auth AUTH     Credentials for basic auth (user:passwd)
+      --no-crawl      Do not crawl the whole website, only check the given urls
+      --no-robotstxt  When crawling do not obey robots.txt
+      -v, --verbose   Print more information about what is happening. This option
+                      is repeatable and will increase verbosity each time it is
+                      repeated.
 
 
 .. _GDPR: https://en.wikipedia.org/wiki/General_Data_Protection_Regulation
