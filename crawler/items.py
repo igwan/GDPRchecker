@@ -11,9 +11,7 @@ from scrapy.loader.processors import TakeFirst, MapCompose, Join
 
 
 class Form(scrapy.Item):
-    url = scrapy.Field(
-        output_processor=TakeFirst()
-    )
+    url = scrapy.Field()
     action = scrapy.Field(
         output_processor=TakeFirst()
     )
